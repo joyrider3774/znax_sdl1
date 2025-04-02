@@ -79,13 +79,14 @@ void TitleScreen()
                                 break;
                         }
                         break;
-                    case GP2X_BUTTON_B:
+                /*  case GP2X_BUTTON_B:
                         GameState = GSQuit;
                         Mix_HaltMusic();
                         if (GlobalSoundEnabled)
                             Mix_PlayChannel(-1,Sounds[SND_GOODBYE],0);
                         SDL_Delay(750);
                         break;
+                */
                     default:
                         break;
                 }
@@ -134,13 +135,14 @@ void TitleScreen()
                                 break;
                         }
                         break;
-                    case KEY_BUTTON_B:
+                /*    case KEY_BUTTON_B:
                         GameState = GSQuit;
                         Mix_HaltMusic();
                         if (GlobalSoundEnabled)
                             Mix_PlayChannel(-1,Sounds[SND_GOODBYE],0);
                         SDL_Delay(750);
                         break;
+                */
                     default:
                         break;
                 }
