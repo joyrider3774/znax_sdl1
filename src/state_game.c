@@ -18,9 +18,9 @@ void Game()
     int AddToScore = 0,Timer = 150;
     char Text[500];
     if(GameType == Relative)
-        Timer = 15;// 200;
+        Timer = 150;
     else
-        Timer = 600;
+        Timer = 300;
     while (GameState == GSGame)
     {
         if(!Mix_PlayingMusic())
@@ -140,7 +140,7 @@ void Game()
                 WriteText(Buffer,font,Text,strlen(Text),345*SCALE,115*SCALE,0,TextColor);
                 if(GameType == Relative)
                 {
-                    sprintf(Text,"+%d",AddToScore/200);
+                    sprintf(Text,"+%d",AddToScore/400);
                     WriteText(Buffer,font,Text,strlen(Text),345*SCALE,50*SCALE,0,TextColor);
                 }
             }
@@ -149,11 +149,11 @@ void Game()
                 ScoreTimer = 0;
                 Score +=AddToScore;
                 if (GameType == Relative)
-                    Timer += AddToScore / 200;
+                    Timer += floor(AddToScore / 400);
                 AddToScore = 0;
             }
         }
-        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d",Timer/60,Timer%60,Score);
+        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d\n\nLeft:\n%d",Timer/60,Timer%60,Score,movesLeft);
         WriteText(Buffer,BigFont,Text,strlen(Text),345*SCALE,10*SCALE,0,TextColor);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{

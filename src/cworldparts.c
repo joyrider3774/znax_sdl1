@@ -26,6 +26,7 @@ CBlock* CBlock_Create(int PlayFieldXin,int PlayFieldYin,int ColorIn)
 
 void CBlock_Select(CBlock* Block)
 {
+    Block->AnimPhase = 0;
     Block->AnimBase = 0;
     Block->AnimCounter = 0;
     Block->AnimPhases = 6;
@@ -34,6 +35,7 @@ void CBlock_Select(CBlock* Block)
 
 void CBlock_DeSelect(CBlock* Block)
 {
+    Block->AnimPhase = 0;
     Block->AnimBase = 0;
     Block->AnimCounter = 0;
     Block->AnimPhases = 1;
@@ -42,6 +44,7 @@ void CBlock_DeSelect(CBlock* Block)
 
 void CBlock_Kill(CBlock* Block)
 {
+    Block->AnimPhase = 6;
     Block->AnimBase = 6;
     Block->AnimCounter = 0;
     Block->AnimPhases = 1;
@@ -92,6 +95,7 @@ CWorldParts* CWorldParts_Create()
     Result->NeedToAddBlocks = false;
     Result->NumSelected = 0;
     Result->SelectedColor = -1;
+    Result->Time = 0;
     for(Y=0;Y<NrOfRows;Y++)
         for(X=0;X<NrOfCols;X++)
             Result->Items[X][Y] = NULL;
@@ -117,6 +121,35 @@ void CWorldParts_KillBlocks(CWorldParts* WorldParts)
             CBlock_Kill(WorldParts->Items[X][Y]);
 }
 
+int CWorldParts_MovesLeft(CWorldParts* WorldParts)
+{
+    int count = 0;
+
+    // Iterate over all possible pairs of top-left and bottom-right corners
+    for (int x1 = 0; x1 < NrOfCols; x1++)
+    {
+      for (int y1 = 0; y1 < NrOfRows; y1++)
+      {
+        for (int x2 = x1 + 1; x2 < NrOfCols; x2++)
+        {
+          for (int y2 = y1 + 1; y2 < NrOfRows; y2++)
+          {
+            // Check if the corners are the same
+            if ((WorldParts->Items[x1][y1]->Color == WorldParts->Items[x1][y2]->Color) &&
+                (WorldParts->Items[x1][y1]->Color == WorldParts->Items[x2][y1]->Color) &&
+                (WorldParts->Items[x1][y1]->Color == WorldParts->Items[x2][y2]->Color) &&
+                //no lines
+                (x2 - x1 > 0) && (y2 - y1 > 0)) 
+            {
+                count++;
+            }
+          }
+        }
+      }
+    }
+
+    return count;
+}
 void CWorldParts_AddBlocks(CWorldParts* WorldParts)
 {
     int X,Y;
@@ -127,19 +160,25 @@ void CWorldParts_AddBlocks(CWorldParts* WorldParts)
                 CBlock_Destroy(WorldParts->Items[X][Y]);
                 WorldParts->Items[X][Y] = CBlock_Create(X,Y,rand()%NrOfBlockColors);
             }
+     movesLeft = CWorldParts_MovesLeft(WorldParts);
 }
 
 
 void CWorldParts_NewGame(CWorldParts* WorldParts)
 {
     int X,Y;
-    for(Y=0;Y<NrOfRows;Y++)
-        for(X=0;X<NrOfCols;X++)
-        {
-            if (WorldParts->Items[X][Y])
-                CBlock_Destroy(WorldParts->Items[X][Y]);
-            WorldParts->Items[X][Y] = CBlock_Create(X,Y,rand()%NrOfBlockColors);
-        }
+    movesLeft = 0;
+    while(movesLeft < 10) 
+    {
+        for(Y=0;Y<NrOfRows;Y++)
+            for(X=0;X<NrOfCols;X++)
+            {
+                if (WorldParts->Items[X][Y])
+                    CBlock_Destroy(WorldParts->Items[X][Y]);
+                WorldParts->Items[X][Y] = CBlock_Create(X,Y,rand()%NrOfBlockColors);
+            }
+        movesLeft = CWorldParts_MovesLeft(WorldParts);
+    }
     WorldParts->NeedToKillBlocks = false;
     WorldParts->NeedToAddBlocks = false;
     WorldParts->NumSelected = 0;

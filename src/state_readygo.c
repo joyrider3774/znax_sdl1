@@ -18,9 +18,9 @@ void ReadyGo()
     int Timer = 600,Counter=0;
     char Text[500];
     if(GameType == Relative)
-        Timer = 200;
+        Timer = 150;
     else
-        Timer = 600;
+        Timer = 300;
     if (MusicCount > 1)
     {
         SelectedMusic =	1+rand()%(MusicCount-1);
@@ -118,7 +118,7 @@ void ReadyGo()
                 GameState = GSGame;
                 break;
 		}
-        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d",Timer/60,Timer%60,Score);
+        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d\n\nLeft:\n%d",Timer/60,Timer%60,Score,movesLeft);
         WriteText(Buffer,BigFont,Text,strlen(Text),345*SCALE,10*SCALE,0,TextColor);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{

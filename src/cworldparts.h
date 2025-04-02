@@ -42,6 +42,7 @@ void CWorldParts_NewGame(CWorldParts* WorldParts);
 void CWorldParts_Draw(CWorldParts* WorldParts, SDL_Surface * Surface);
 void CWorldParts_DeSelect(CWorldParts* WorldParts, bool PlaySound);
 long CWorldParts_Select(CWorldParts* WorldParts, int PlayFieldX,int PlayFieldY);
+int CWorldParts_MovesLeft(CWorldParts* WorldParts);
 
 extern CWorldParts *World;
 

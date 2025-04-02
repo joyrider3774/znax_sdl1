@@ -117,6 +117,8 @@ void TitleScreen()
                                 GameState = GSGameTypeMenu;
                                 break;
                             case 2:
+                                //so that it shows both gameplay modes
+                                GameType = Fixed;
                                 GameState = GSShowHighScores;
                                 break;
                             case 3:

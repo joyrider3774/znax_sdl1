@@ -38,4 +38,5 @@ extern bool ShowFps;
 extern bool noDelay;
 extern bool fullscreen;
 extern FPSmanager Fpsman;
+extern int movesLeft;
 #endif

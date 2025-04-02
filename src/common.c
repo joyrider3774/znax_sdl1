@@ -37,3 +37,4 @@ bool ShowFps = false;
 bool noDelay = false;
 bool fullscreen = false;
 FPSmanager Fpsman;
+int movesLeft = 0;

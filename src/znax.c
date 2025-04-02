@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 		    printf("Succesfully Set %dx%dx16\n",WINDOW_WIDTH,WINDOW_HEIGHT);
 		    SDL_FillRect(Screen,NULL,SDL_MapRGB(Screen->format,0,0,0));
             SDL_ShowCursor(SDL_DISABLE);
-            if (Mix_OpenAudio(11025,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,128) < 0)
+            if (Mix_OpenAudio(11025,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,256) < 0)
             {
                 GlobalSoundEnabled = false;
                 printf("Failed to initialise sound!\n");

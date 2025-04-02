@@ -76,7 +76,7 @@ void TimeOver()
                 SDL_BlitSurface(IMGTimeOver,NULL,Buffer,&Dst);
                 break;
 		}
-        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d",Timer/60,Timer%60,Score);
+        sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d\n\nLeft:\n%d",Timer/60,Timer%60,Score,movesLeft);
         WriteText(Buffer,BigFont,Text,strlen(Text),345*SCALE,10*SCALE,0,TextColor);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{
@@ -117,6 +117,7 @@ void TimeOver()
             else
                 sprintf(HighScores[GameType][Teller1].PName,"%s",Name);
             HighScores[GameType][Teller1].PScore = Score;
+            SaveHighScores();
             break;
         }
 }
