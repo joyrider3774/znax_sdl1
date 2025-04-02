@@ -8,6 +8,7 @@
 
 void Intro()
 {
+    int alpha = 0;
     SDL_Event Event;
     Uint32 Time=0;
     int IntroScreenNr = 1;
@@ -72,6 +73,20 @@ void Intro()
                 SDL_BlitSurface(IMGIntro3,NULL,Buffer,NULL);
                 break;
         }
+        if (alpha < 255)
+        {
+            if(alpha+AlphaInc > MaxAlpha)
+            {
+                alpha = 255;
+                SDL_SetAlpha(Buffer,SDL_SRCALPHA | SDL_RLEACCEL,alpha);
+            }
+            else
+            {
+                alpha+=AlphaInc;
+                SDL_SetAlpha(Buffer,SDL_SRCALPHA | SDL_RLEACCEL,alpha);
+            }
+        }
+        SDL_BlitSurface(Buffer,NULL,Buffer2,NULL);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{
 			double wscale = (double)WINDOW_WIDTH / ORIG_WINDOW_WIDTH;
@@ -82,13 +97,13 @@ void Intro()
 			dst.y = (WINDOW_HEIGHT - (ORIG_WINDOW_HEIGHT * wscale)) / 2,
 			dst.w = ORIG_WINDOW_WIDTH * wscale;
 			dst.h = ORIG_WINDOW_HEIGHT * wscale;
-			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer,wscale,wscale,0);
+			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer2,wscale,wscale,0);
 			SDL_BlitSurface(ScreenBufferZoom,NULL,Screen,&dst);
 			SDL_FreeSurface(ScreenBufferZoom);
 		}
 		else
 		{
-			SDL_BlitSurface(Buffer, NULL, Screen, NULL);
+			SDL_BlitSurface(Buffer2, NULL, Screen, NULL);
 		}
         HandleFPS();
         SDL_Flip(Screen);
@@ -97,6 +112,7 @@ void Intro()
 
         if(Time + 3700 < SDL_GetTicks())
         {
+            alpha = 0;
             IntroScreenNr++;
             if(IntroScreenNr > 3)
                 GameState = GSTitleScreen;

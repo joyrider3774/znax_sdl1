@@ -9,6 +9,7 @@
 
 void GetHighScoreName(char NameIn[21],int Place, long PScore)
 {
+	int alpha = 0;
 	char Name[21];
 	char Msg[500];
 	bool End=false,SubmitChanges=false;
@@ -235,6 +236,20 @@ void GetHighScoreName(char NameIn[21],int Place, long PScore)
 		WriteText(Buffer,MonoFont,Tekst,strlen(Tekst),110*SCALE,(62+(Place)*16)*SCALE,2,TextColor1);
 		sprintf(Tekst,"Use Up,Down,Left,right. A = Ok X = Cancel" );
 		WriteText(Buffer,font,Tekst,strlen(Tekst),105*SCALE,227*SCALE,0,TextColor);
+		if (alpha < 255)
+        {
+            if(alpha+AlphaInc > MaxAlpha)
+            {
+                alpha = 255;
+                SDL_SetAlpha(Buffer,SDL_SRCALPHA | SDL_RLEACCEL,alpha);
+            }
+            else
+            {
+                alpha+=AlphaInc;
+                SDL_SetAlpha(Buffer,SDL_SRCALPHA | SDL_RLEACCEL,alpha);
+            }
+        }
+        SDL_BlitSurface(Buffer,NULL,Buffer2,NULL);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{
 			double wscale = (double)WINDOW_WIDTH / ORIG_WINDOW_WIDTH;
@@ -245,13 +260,13 @@ void GetHighScoreName(char NameIn[21],int Place, long PScore)
 			dst.y = (WINDOW_HEIGHT - (ORIG_WINDOW_HEIGHT * wscale)) / 2,
 			dst.w = ORIG_WINDOW_WIDTH * wscale;
 			dst.h = ORIG_WINDOW_HEIGHT * wscale;
-			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer,wscale,wscale,0);
+			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer2,wscale,wscale,0);
 			SDL_BlitSurface(ScreenBufferZoom,NULL,Screen,&dst);
 			SDL_FreeSurface(ScreenBufferZoom);
 		}
 		else
 		{
-			SDL_BlitSurface(Buffer, NULL, Screen, NULL);
+			SDL_BlitSurface(Buffer2, NULL, Screen, NULL);
 		}
         HandleFPS();
         SDL_Flip(Screen);

@@ -4,6 +4,8 @@
 #define ORIG_WINDOW_WIDTH 640
 #define ORIG_WINDOW_HEIGHT 360
 #define FPS 60
+#define MaxAlpha 150
+#define AlphaInc 2
 
 #define GP2X_BUTTON_UP              (20)
 #define GP2X_BUTTON_DOWN            (21)

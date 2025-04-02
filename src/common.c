@@ -21,7 +21,7 @@ Mix_Music *Music[MaxMusicFiles];
 
 bool GlobalSoundEnabled = true;
 
-SDL_Surface *Screen, *Buffer;
+SDL_Surface *Screen, *Buffer, *Buffer2;
 TTF_Font* font,*BigFont,*MonoFont;
 SDL_Joystick *Joystick;
 int GameState = GSIntro;

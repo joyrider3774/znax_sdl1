@@ -22,7 +22,7 @@ extern Mix_Music *Music[MaxMusicFiles];
 
 extern bool GlobalSoundEnabled;
 
-extern SDL_Surface *Screen, *Buffer;
+extern SDL_Surface *Screen, *Buffer, *Buffer2;
 extern TTF_Font* font,*BigFont,*MonoFont;
 extern SDL_Joystick *Joystick;
 extern int GameState;

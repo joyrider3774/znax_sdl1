@@ -78,6 +78,11 @@ int main(int argc, char **argv)
             SDL_Surface *Tmp = SDL_CreateRGBSurface(SDL_SWSURFACE, ORIG_WINDOW_WIDTH, ORIG_WINDOW_HEIGHT, 0, 
                 Screen->format->Rmask, Screen->format->Gmask, Screen->format->Bmask, Screen->format->Amask);
             Buffer = SDL_DisplayFormat(Tmp);
+            Tmp = SDL_CreateRGBSurface(SDL_SWSURFACE, ORIG_WINDOW_WIDTH, ORIG_WINDOW_HEIGHT, 0, 
+                Screen->format->Rmask, Screen->format->Gmask, Screen->format->Bmask, Screen->format->Amask);
+            Buffer2 = SDL_DisplayFormat(Tmp);
+            SDL_FillRect(Buffer,NULL,SDL_MapRGB(Buffer->format,0,0,0));
+            SDL_FillRect(Buffer2,NULL,SDL_MapRGB(Buffer->format,0,0,0));
             SDL_FreeSurface(Tmp);
 		    printf("Succesfully Set %dx%dx16\n",WINDOW_WIDTH,WINDOW_HEIGHT);
 		    SDL_FillRect(Screen,NULL,SDL_MapRGB(Screen->format,0,0,0));
@@ -168,6 +173,8 @@ int main(int argc, char **argv)
             {
                 printf("Failed to initialize TTF\n");
             }
+            SDL_FreeSurface(Buffer);
+            SDL_FreeSurface(Buffer2);
             SDL_FreeSurface(Screen);
             Screen=NULL;
 		}

@@ -78,6 +78,7 @@ void TimeOver()
 		}
         sprintf(Text,"Timer:\n%2d:%02d\n\nScore:\n%d\n\nLeft:\n%d",Timer/60,Timer%60,Score,movesLeft);
         WriteText(Buffer,BigFont,Text,strlen(Text),345*SCALE,10*SCALE,0,TextColor);
+        SDL_BlitSurface(Buffer,NULL,Buffer2,NULL);
         if ((WINDOW_WIDTH != ORIG_WINDOW_WIDTH) || (WINDOW_HEIGHT != ORIG_WINDOW_HEIGHT))
 		{
 			double wscale = (double)WINDOW_WIDTH / ORIG_WINDOW_WIDTH;
@@ -88,13 +89,13 @@ void TimeOver()
 			dst.y = (WINDOW_HEIGHT - (ORIG_WINDOW_HEIGHT * wscale)) / 2,
 			dst.w = ORIG_WINDOW_WIDTH * wscale;
 			dst.h = ORIG_WINDOW_HEIGHT * wscale;
-			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer,wscale,wscale,0);
+			SDL_Surface *ScreenBufferZoom = zoomSurface(Buffer2,wscale,wscale,0);
 			SDL_BlitSurface(ScreenBufferZoom,NULL,Screen,&dst);
 			SDL_FreeSurface(ScreenBufferZoom);
 		}
 		else
 		{
-			SDL_BlitSurface(Buffer, NULL, Screen, NULL);
+			SDL_BlitSurface(Buffer2, NULL, Screen, NULL);
 		}
         HandleFPS();
         SDL_Flip(Screen);
