@@ -133,7 +133,7 @@ void SearchForMusic()
 	MusicCount = 0;
     if (GlobalSoundEnabled)
     {
-		Music[0] = Mix_LoadMUS("./music/title.wav");
+		Music[0] = Mix_LoadMUS("./music/title.ogg");
         MusicCount++;
     }
 	
