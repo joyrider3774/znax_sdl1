@@ -57,6 +57,14 @@ int main(int argc, char **argv)
             WINDOW_WIDTH = 640 * 5;
             WINDOW_HEIGHT = 360 * 5;
         }
+
+        if(strcasecmp(argv[i], "-w") == 0)
+			if(i+1 < argc)
+				WINDOW_WIDTH = atoi(argv[i+1]);
+		
+		if(strcasecmp(argv[i], "-h") == 0)
+			if(i+1 < argc)
+				WINDOW_HEIGHT = atoi(argv[i+1]);
     }
 
 	if (SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_VIDEO | SDL_INIT_AUDIO ) == 0)
